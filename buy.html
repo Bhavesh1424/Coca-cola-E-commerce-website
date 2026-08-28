@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Taste the Magic</title>
+
+    <!-- Tailwind CSS Script CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .title-font {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Dynamic Theme Variables */
+        .coke-theme {
+            background: radial-gradient(circle at center, #2f0709 0%, #070102 100%);
+            color: #ffffff;
+        }
+
+        .diet-theme {
+            background-color: #F5F5F7;
+            color: #050505;
+        }
+
+        /* Form Controls transition */
+        input,
+        select,
+        textarea {
+            transition: all 0.3s ease;
+        }
+
+        /* Custom checkmark animation */
+        .checkmark__circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 2;
+            stroke-miterlimit: 10;
+            stroke: #4caf50;
+            fill: none;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+
+        .checkmark {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 2;
+            stroke: #fff;
+            stroke-miterlimit: 10;
+            box-shadow: inset 0px 0px 0px #4caf50;
+            animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s forwards;
+        }
+
+        .checkmark__check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        }
+
+        @keyframes stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes scale {
+
+            0%,
+            100% {
+                transform: none;
+            }
+
+            50% {
+                transform: scale3d(1.1, 1.1, 1);
+            }
+        }
+
+        @keyframes fill {
+            100% {
+                box-shadow: inset 0px 0px 0px 30px #4caf50;
+            }
+        }
+    </style>
+</head>
+
+<body class="coke-theme min-h-screen flex flex-col">
+
+    <!-- Header Navigation -->
+    <header
+        class="w-full px-6 py-6 md:px-16 flex items-center justify-between border-b border-white/10 transition-colors duration-500"
+        id="checkout-header">
+        <a href="index.html"
+            class="flex items-center gap-2 group text-sm font-semibold hover:opacity-80 transition-opacity"
+            id="back-home-link">
+            <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor"
+                stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            <span>Back to Home</span>
+        </a>
+        <div class="text-center font-bold tracking-wider uppercase title-font text-lg" id="logo-branding">
+            COCA-COLA
+        </div>
+        <div class="w-20"></div> <!-- Spacer for balancing back link -->
+    </header>
+
+    <!-- Main Checkout Content -->
+    <main class="flex-grow container mx-auto px-6 py-12 max-w-6xl">
+        <!-- Main Form & Card Panel -->
+        <div id="checkout-card"
+            class="bg-white/5 backdrop-blur-md rounded-[2.5rem] border border-white/10 p-8 md:p-12 shadow-2xl transition-all duration-500">
+            <div id="checkout-view" class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+
+                <!-- Left Column: Shipping & Payment Details -->
+                <div class="lg:col-span-7 space-y-8">
+                    <div>
+                        <h1 class="title-font text-3xl font-black uppercase tracking-tight mb-2">Checkout Details</h1>
+                        <p class="text-sm opacity-60">Please fill out your delivery and payment details to complete your
+                            order.</p>
+                    </div>
+
+                    <form id="order-form" class="space-y-6">
+                        <!-- Shipping Info -->
+                        <div class="space-y-4">
+                            <h2 class="text-lg font-bold uppercase tracking-wider title-font opacity-80">1. Shipping
+                                Info</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="space-y-2">
+                                    <label class="text-xs uppercase tracking-wider font-semibold opacity-70">Full
+                                        Name</label>
+                                    <input required type="text" id="cust-name"
+                                        class="w-full bg-black/20 border-white/10 focus:border-red-500 focus:ring-1 focus:ring-red-500 rounded-xl py-3 px-4 text-white text-sm"
+                                        placeholder="John Doe">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-xs uppercase tracking-wider font-semibold opacity-70">Phone
+                                        Number</label>
+                                    <input required type="tel" id="cust-phone"
+                                        class="w-full bg-black/20 border-white/10 focus:border-red-500 focus:ring-1 focus:ring-red-500 rounded-xl py-3 px-4 text-white text-sm"
+                                        placeholder="1-800-555-0199">
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs uppercase tracking-wider font-semibold opacity-70">Email
+                                    Address</label>
+                                <input required type="email" id="cust-email"
+                                    class="w-full bg-black/20 border-white/10 focus:border-red-500 focus:ring-1 focus:ring-red-500 rounded-xl py-3 px-4 text-white text-sm"
+                                    placeholder="john@example.com">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs uppercase tracking-wider font-semibold opacity-70">Shipping
+                                    Address</label>
+                                <textarea required id="cust-address" rows="3"
+                                    class="w-full bg-black/20 border-white/10 focus:border-red-500 focus:ring-1 focus:ring-red-500 rounded-xl py-3 px-4 text-white text-sm resize-none"
+                                    placeholder="123 Magic Street, Sweet City, 110001"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Payment Methods -->
+                        <div class="space-y-4 pt-4 hidden">
+                            <h2 class="text-lg font-bold uppercase tracking-wider title-font opacity-80">2. Payment
+                                Method</h2>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4" id="payment-options">
+                                <!-- UPI Option -->
+                                <label
+                                    class="payment-card border border-white/10 bg-black/20 rounded-xl p-4 flex flex-col items-center gap-3 cursor-pointer hover:bg-black/35 transition-all text-center relative">
+                                    <input type="radio" name="payment" value="UPI" checked class="sr-only">
+                                    <div
+                                        class="payment-capsule w-16 h-6 rounded-full border flex items-center justify-center transition-all duration-300">
+                                        <div
+                                            class="inner-dot w-2 h-2 rounded-full bg-transparent transition-all duration-300">
+                                        </div>
+                                    </div>
+                                    <svg class="w-8 h-8 opacity-80" fill="none" stroke="currentColor" stroke-width="2"
+                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                    </svg>
+                                    <div>
+                                        <p class="font-bold text-xs uppercase tracking-wider">UPI</p>
+                                        <p class="text-[10px] opacity-50 mt-0.5">Instant Transfer</p>
+                                    </div>
+                                </label>
+                                <!-- Card Option -->
+                                <label
+                                    class="payment-card border border-white/10 bg-black/20 rounded-xl p-4 flex flex-col items-center gap-3 cursor-pointer hover:bg-black/35 transition-all text-center relative">
+                                    <input type="radio" name="payment" value="Card" class="sr-only">
+                                    <div
+                                        class="payment-capsule w-16 h-6 rounded-full border flex items-center justify-center transition-all duration-300">
+                                        <div
+                                            class="inner-dot w-2 h-2 rounded-full bg-transparent transition-all duration-300">
+                                        </div>
+                                    </div>
+                                    <svg class="w-8 h-8 opacity-80" fill="none" stroke="currentColor" stroke-width="2"
+                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                    </svg>
+                                    <div>
+                                        <p class="font-bold text-xs uppercase tracking-wider">Card</p>
+                                        <p class="text-[10px] opacity-50 mt-0.5">Visa / Mastercard</p>
+                                    </div>
+                                </label>
+                                <!-- COD Option -->
+                                <label
+                                    class="payment-card border border-white/10 bg-black/20 rounded-xl p-4 flex flex-col items-center gap-3 cursor-pointer hover:bg-black/35 transition-all text-center relative">
+                                    <input type="radio" name="payment" value="COD" class="sr-only">
+                                    <div
+                                        class="payment-capsule w-16 h-6 rounded-full border flex items-center justify-center transition-all duration-300">
+                                        <div
+                                            class="inner-dot w-2 h-2 rounded-full bg-transparent transition-all duration-300">
+                                        </div>
+                                    </div>
+                                    <svg class="w-8 h-8 opacity-80" fill="none" stroke="currentColor" stroke-width="2"
+                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+                                    <div>
+                                        <p class="font-bold text-xs uppercase tracking-wider">COD</p>
+                                        <p class="text-[10px] opacity-50 mt-0.5">Cash on Delivery</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Complete Button -->
+                        <div class="pt-4">
+                            <button type="submit" id="submit-btn"
+                                class="w-full py-4 text-center rounded-xl font-bold uppercase tracking-widest text-sm shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
+                                Complete Purchase
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Right Column: Order Summary & Counters -->
+                <div class="lg:col-span-5 border-t lg:border-t-0 lg:border-l border-white/10 lg:pl-12 pt-12 lg:pt-0">
+                    <div class="space-y-6">
+                        <h2 class="text-xl font-bold uppercase tracking-wider title-font opacity-80 mb-4">Order Summary
+                        </h2>
+
+                        <!-- Product 1: Coca-Cola Original -->
+                        <div class="flex flex-col gap-4 bg-black/10 rounded-2xl p-4 border border-white/5"
+                            id="product-original-card">
+                            <div class="flex items-center gap-4">
+                                <div class="w-16 h-16 rounded-xl overflow-hidden bg-cover bg-center flex-shrink-0"
+                                    style="background-image: url('Coca cola aesthetics.jpg');"></div>
+                                <div class="flex-grow">
+                                    <h3 class="font-bold title-font text-sm leading-tight">Coca-Cola Original</h3>
+                                    <p class="text-[11px] opacity-50 mt-0.5">40 INR / Can</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between border-t border-white/5 pt-3 mt-1">
+                                <span class="text-xs uppercase tracking-wider font-semibold opacity-60">Quantity</span>
+                                <div
+                                    class="counter-wrapper flex items-center gap-3 bg-black/15 border border-white/10 rounded-xl p-1">
+                                    <button type="button" id="coke-qty-minus"
+                                        class="counter-btn w-8 h-8 rounded-lg flex items-center justify-center font-bold hover:bg-white/10 transition-colors text-sm">-</button>
+                                    <span id="coke-qty-val" class="w-8 text-center font-black text-sm">1</span>
+                                    <button type="button" id="coke-qty-plus"
+                                        class="counter-btn w-8 h-8 rounded-lg flex items-center justify-center font-bold hover:bg-white/10 transition-colors text-sm">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 2: Diet Coke -->
+                        <div class="flex flex-col gap-4 bg-black/10 rounded-2xl p-4 border border-white/5"
+                            id="product-diet-card">
+                            <div class="flex items-center gap-4">
+                                <div class="w-16 h-16 rounded-xl overflow-hidden bg-cover bg-center flex-shrink-0"
+                                    style="background-image: url('diet coke 3.jpg');"></div>
+                                <div class="flex-grow">
+                                    <h3 class="font-bold title-font text-sm leading-tight">Diet Coke Silver</h3>
+                                    <p class="text-[11px] opacity-50 mt-0.5">40 INR / Can</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between border-t border-white/5 pt-3 mt-1">
+                                <span class="text-xs uppercase tracking-wider font-semibold opacity-60">Quantity</span>
+                                <div
+                                    class="counter-wrapper flex items-center gap-3 bg-black/15 border border-white/10 rounded-xl p-1">
+                                    <button type="button" id="diet-qty-minus"
+                                        class="counter-btn w-8 h-8 rounded-lg flex items-center justify-center font-bold hover:bg-white/10 transition-colors text-sm">-</button>
+                                    <span id="diet-qty-val" class="w-8 text-center font-black text-sm">0</span>
+                                    <button type="button" id="diet-qty-plus"
+                                        class="counter-btn w-8 h-8 rounded-lg flex items-center justify-center font-bold hover:bg-white/10 transition-colors text-sm">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pricing Breakdown -->
+                        <div class="space-y-3 pt-4 border-t border-white/5">
+                            <div class="flex justify-between text-sm" id="coke-row">
+                                <span class="opacity-60">Coca-Cola Original</span>
+                                <span id="summary-coke-total">INR 40.00</span>
+                            </div>
+                            <div class="flex justify-between text-sm" id="diet-row">
+                                <span class="opacity-60">Diet Coke Silver</span>
+                                <span id="summary-diet-total">INR 0.00</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="opacity-60">Shipping</span>
+                                <span class="text-green-500 font-medium">FREE</span>
+                            </div>
+                            <div class="flex justify-between text-lg font-black title-font pt-3 border-t border-white/10"
+                                id="total-price-row">
+                                <span>TOTAL</span>
+                                <span id="total-price">INR 40.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Success Overlay View (Hidden initially) -->
+            <div id="success-view" class="hidden flex flex-col items-center justify-center py-16 space-y-8">
+                <div class="success-tick-wrapper">
+                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                        <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                    </svg>
+                </div>
+                <div class="text-center space-y-3">
+                    <h2 class="title-font text-3xl md:text-4xl font-black uppercase tracking-tight">Order Placed
+                        Successfully!</h2>
+                    <p class="text-sm opacity-60 max-w-md mx-auto">Thank you for your purchase. Your order <span
+                            class="font-bold text-red-500" id="success-order-num">#CC-490218</span> is ready for
+                        shipment.</p>
+                </div>
+
+                <!-- Order Details Summary Card -->
+                <div class="w-full max-w-md bg-black/10 border border-white/5 rounded-3xl p-6 space-y-4 text-sm"
+                    id="success-summary-card">
+                    <div class="flex flex-col gap-2 border-b border-white/5 pb-3" id="success-items-list">
+                        <!-- Populated dynamically by JavaScript -->
+                    </div>
+                    <div class="flex justify-between border-b border-white/5 pb-2">
+                        <span class="opacity-60">Total Paid</span>
+                        <span id="success-total" class="font-bold">INR 40.00</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="opacity-60">Payment Mode</span>
+                        <span id="success-payment" class="font-bold uppercase">UPI</span>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <a href="index.html" id="success-home-btn"
+                        class="inline-block px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm shadow-xl transition-all duration-300">
+                        Continue Shopping
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-8 border-t border-white/10 text-center text-xs opacity-40 transition-colors duration-500"
+        id="checkout-footer">
+        © 2024 The Coca-Cola Company. All rights reserved.
+    </footer>
+
+    <!-- Razorpay Checkout SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Supabase backend integration
+            const SUPABASE_URL = 'https://jumafcstubsneauwkzcn.supabase.co';
+            const SUPABASE_KEY = 'sb_publishable_8z2jdACh8r-kTrfeKVO44w_9w3lZvDN';
+            const RAZORPAY_KEY_ID = 'rzp_test_TTk9TTGHpMNKPk'; // Replace with your Razorpay Test Key ID
+
+            async function saveToSupabase(table, data) {
+                try {
+                    const response = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+                        method: 'POST',
+                        headers: {
+                            'apikey': SUPABASE_KEY,
+                            'Authorization': `Bearer ${SUPABASE_KEY}`,
+                            'Content-Type': 'application/json',
+                            'Prefer': 'return=minimal'
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    if (!response.ok) {
+                        const err = await response.json().catch(() => ({}));
+                        console.error(`Supabase error saving to ${table}:`, err);
+                    }
+                } catch (error) {
+                    console.error(`Fetch error saving to ${table}:`, error);
+                }
+            }
+
+            const params = new URLSearchParams(window.location.search);
+            const product = params.get('product') || 'original';
+            const pricePerBottle = 40;
+
+            let cokeQuantity = (product === 'original') ? 1 : 0;
+            let dietQuantity = (product === 'diet-coke') ? 1 : 0;
+
+            const body = document.body;
+            const header = document.getElementById('checkout-header');
+            const footer = document.getElementById('checkout-footer');
+            const checkoutCard = document.getElementById('checkout-card');
+            const logoBranding = document.getElementById('logo-branding');
+            const submitBtn = document.getElementById('submit-btn');
+            const backHomeLink = document.getElementById('back-home-link');
+
+            const cokeQtyVal = document.getElementById('coke-qty-val');
+            const dietQtyVal = document.getElementById('diet-qty-val');
+            const summaryCokeTotal = document.getElementById('summary-coke-total');
+            const summaryDietTotal = document.getElementById('summary-diet-total');
+            const totalPrice = document.getElementById('total-price');
+            const orderForm = document.getElementById('order-form');
+            const checkoutView = document.getElementById('checkout-view');
+            const successView = document.getElementById('success-view');
+
+            const successOrderNum = document.getElementById('success-order-num');
+            const successTotal = document.getElementById('success-total');
+            const successPayment = document.getElementById('success-payment');
+            const successHomeBtn = document.getElementById('success-home-btn');
+            const successSummaryCard = document.getElementById('success-summary-card');
+
+            if (product === 'diet-coke') {
+                body.className = 'diet-theme min-h-screen flex flex-col transition-colors duration-500';
+                header.className = 'w-full px-6 py-6 md:px-16 flex items-center justify-between border-b border-black/10 transition-colors duration-500';
+                footer.className = 'w-full py-8 border-t border-black/10 text-center text-xs opacity-40 transition-colors duration-500';
+                checkoutCard.className = 'bg-white rounded-[2.5rem] border border-black/10 p-8 md:p-12 shadow-2xl transition-all duration-500';
+
+                logoBranding.innerText = 'DIET COKE';
+                logoBranding.style.color = '#050505';
+                logoBranding.style.textShadow = '0 0 12px rgba(198, 198, 198, 0.4)';
+
+                document.querySelectorAll('input:not([type="radio"]), select, textarea').forEach(el => {
+                    el.className = 'w-full bg-white border border-gray-300 focus:ring-2 focus:ring-gray-400 rounded-xl py-3 px-4 text-gray-900 text-sm';
+                });
+
+                submitBtn.className = 'w-full py-4 text-center rounded-xl font-bold uppercase tracking-widest text-sm transition-all duration-300 transform hover:-translate-y-0.5 bg-black hover:bg-gray-800 text-white shadow-xl';
+                backHomeLink.className = 'flex items-center gap-2 group text-sm font-semibold hover:opacity-80 transition-opacity text-gray-800';
+                backHomeLink.setAttribute('href', 'diet-coke.html');
+
+                const productOriginalCard = document.getElementById('product-original-card');
+                const productDietCard = document.getElementById('product-diet-card');
+                if (productOriginalCard) productOriginalCard.className = 'flex flex-col gap-4 bg-gray-50 border border-gray-200 rounded-2xl p-4 text-gray-900';
+                if (productDietCard) productDietCard.className = 'flex flex-col gap-4 bg-gray-50 border border-gray-200 rounded-2xl p-4 text-gray-900';
+
+                document.querySelectorAll('.counter-wrapper').forEach(el => {
+                    el.className = 'counter-wrapper flex items-center gap-3 bg-gray-100 border border-gray-200 rounded-xl p-1 text-gray-900';
+                });
+                document.querySelectorAll('.counter-btn').forEach(btn => {
+                    btn.className = 'counter-btn w-8 h-8 rounded-lg flex items-center justify-center font-bold hover:bg-black/5 transition-colors text-sm';
+                });
+
+                document.querySelectorAll('.payment-card').forEach(card => {
+                    card.className = 'payment-card border border-gray-200 bg-white rounded-xl p-4 flex flex-col items-center gap-3 cursor-pointer hover:bg-gray-50 transition-all text-center relative';
+                });
+
+                setupPaymentCardBorderTracking();
+                successSummaryCard.className = 'w-full max-w-md bg-gray-50 border border-gray-200 rounded-3xl p-6 space-y-4 text-sm';
+                successHomeBtn.className = 'inline-block px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm shadow-xl transition-all duration-300 bg-black hover:bg-gray-800 text-white';
+                successHomeBtn.setAttribute('href', 'diet-coke.html');
+            } else {
+                body.className = 'coke-theme min-h-screen flex flex-col transition-colors duration-500';
+                header.className = 'w-full px-6 py-6 md:px-16 flex items-center justify-between border-b border-white/10 transition-colors duration-500';
+                footer.className = 'w-full py-8 border-t border-white/10 text-center text-xs opacity-40 transition-colors duration-500';
+                checkoutCard.className = 'bg-white/5 backdrop-blur-md rounded-[2.5rem] border border-white/10 p-8 md:p-12 shadow-2xl transition-all duration-500';
+
+                logoBranding.innerText = 'COCA-COLA';
+                logoBranding.style.color = '#ffffff';
+
+                document.querySelectorAll('input:not([type="radio"]), select, textarea').forEach(el => {
+                    el.className = 'w-full bg-black/20 border border-white/10 focus:border-red-500 focus:ring-1 focus:ring-red-500 rounded-xl py-3 px-4 text-white text-sm';
+                });
+
+                submitBtn.className = 'w-full py-4 text-center rounded-xl font-bold uppercase tracking-widest text-sm transition-all duration-300 transform hover:-translate-y-0.5 bg-[#ff5449] hover:bg-[#93000a] text-white shadow-xl';
+                backHomeLink.className = 'flex items-center gap-2 group text-sm font-semibold hover:opacity-80 transition-opacity text-white';
+                backHomeLink.setAttribute('href', 'index.html');
+
+                const productOriginalCard = document.getElementById('product-original-card');
+                const productDietCard = document.getElementById('product-diet-card');
+                if (productOriginalCard) productOriginalCard.className = 'flex flex-col gap-4 bg-black/10 border border-white/5 rounded-2xl p-4 text-white';
+                if (productDietCard) productDietCard.className = 'flex flex-col gap-4 bg-black/10 border border-white/5 rounded-2xl p-4 text-white';
+
+                document.querySelectorAll('.counter-wrapper').forEach(el => {
+                    el.className = 'counter-wrapper flex items-center gap-3 bg-black/15 border border-white/10 rounded-xl p-1 text-white';
+                });
+                document.querySelectorAll('.counter-btn').forEach(btn => {
+                    btn.className = 'counter-btn w-8 h-8 rounded-lg flex items-center justify-center font-bold hover:bg-white/10 transition-colors text-sm';
+                });
+
+                setupPaymentCardBorderTracking();
+                successSummaryCard.className = 'w-full max-w-md bg-black/10 border border-white/5 rounded-3xl p-6 space-y-4 text-sm';
+                successHomeBtn.className = 'inline-block px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm shadow-xl transition-all duration-300 bg-[#ff5449] hover:bg-[#93000a] text-white';
+                successHomeBtn.setAttribute('href', 'index.html');
+            }
+
+            function setupPaymentCardBorderTracking() {
+                const labels = document.querySelectorAll('.payment-card');
+                const updateCardStyles = () => {
+                    labels.forEach(lbl => {
+                        const radio = lbl.querySelector('input[type="radio"]');
+                        const capsule = lbl.querySelector('.payment-capsule');
+                        const innerDot = lbl.querySelector('.inner-dot');
+                        if (product === 'diet-coke') {
+                            if (radio.checked) {
+                                lbl.className = 'payment-card border border-black bg-black/5 rounded-xl p-4 flex flex-col items-center gap-3 cursor-pointer scale-[1.02] shadow-md transition-all text-center relative';
+                                if (capsule) capsule.className = 'payment-capsule w-16 h-6 rounded-full border border-black bg-black flex items-center justify-center transition-all duration-300';
+                                if (innerDot) innerDot.className = 'inner-dot w-2 h-2 rounded-full bg-white transition-all duration-300';
+                            } else {
+                                lbl.className = 'payment-card border border-gray-200 bg-white rounded-xl p-4 flex flex-col items-center gap-3 cursor-pointer hover:bg-gray-50 transition-all text-center relative';
+                                if (capsule) capsule.className = 'payment-capsule w-16 h-6 rounded-full border border-gray-300 bg-transparent flex items-center justify-center transition-all duration-300';
+                                if (innerDot) innerDot.className = 'inner-dot w-2 h-2 rounded-full bg-transparent transition-all duration-300';
+                            }
+                        } else {
+                            if (radio.checked) {
+                                lbl.className = 'payment-card border border-[#ff5449] bg-red-500/15 backdrop-blur-md rounded-xl p-4 flex flex-col items-center gap-3 cursor-pointer scale-[1.02] shadow-lg transition-all text-center relative';
+                                if (capsule) capsule.className = 'payment-capsule w-16 h-6 rounded-full border border-[#ff5449] bg-[#ff5449] flex items-center justify-center transition-all duration-300';
+                                if (innerDot) innerDot.className = 'inner-dot w-2 h-2 rounded-full bg-white transition-all duration-300';
+                            } else {
+                                lbl.className = 'payment-card border border-white/10 bg-black/20 rounded-xl p-4 flex flex-col items-center gap-3 cursor-pointer hover:bg-black/35 transition-all text-center relative';
+                                if (capsule) capsule.className = 'payment-capsule w-16 h-6 rounded-full border border-white/20 bg-transparent flex items-center justify-center transition-all duration-300';
+                                if (innerDot) innerDot.className = 'inner-dot w-2 h-2 rounded-full bg-transparent transition-all duration-300';
+                            }
+                        }
+                    });
+                };
+                updateCardStyles();
+                labels.forEach(lbl => {
+                    lbl.addEventListener('click', () => {
+                        lbl.querySelector('input[type="radio"]').checked = true;
+                        updateCardStyles();
+                    });
+                });
+            }
+
+            function updateTotals() {
+                const cokeTotal = cokeQuantity * pricePerBottle;
+                const dietTotal = dietQuantity * pricePerBottle;
+                const grandTotal = cokeTotal + dietTotal;
+                if (cokeQtyVal) cokeQtyVal.innerText = cokeQuantity;
+                if (dietQtyVal) dietQtyVal.innerText = dietQuantity;
+                if (summaryCokeTotal) summaryCokeTotal.innerText = `INR ${cokeTotal.toFixed(2)}`;
+                if (summaryDietTotal) summaryDietTotal.innerText = `INR ${dietTotal.toFixed(2)}`;
+                if (totalPrice) totalPrice.innerText = `INR ${grandTotal.toFixed(2)}`;
+                if (grandTotal === 0) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerText = 'Cart is Empty';
+                    submitBtn.style.opacity = '0.5';
+                    submitBtn.style.cursor = 'not-allowed';
+                } else {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = 'Complete Purchase';
+                    submitBtn.style.opacity = '1';
+                    submitBtn.style.cursor = 'pointer';
+                }
+            }
+
+            document.getElementById('coke-qty-plus').addEventListener('click', () => { if (cokeQuantity < 100) { cokeQuantity++; updateTotals(); } });
+            document.getElementById('coke-qty-minus').addEventListener('click', () => { if (cokeQuantity > 0) { cokeQuantity--; updateTotals(); } });
+            document.getElementById('diet-qty-plus').addEventListener('click', () => { if (dietQuantity < 100) { dietQuantity++; updateTotals(); } });
+            document.getElementById('diet-qty-minus').addEventListener('click', () => { if (dietQuantity > 0) { dietQuantity--; updateTotals(); } });
+
+            updateTotals();
+
+            orderForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const randNum = Math.floor(100000 + Math.random() * 900000);
+                const orderPrefix = (product === 'diet-coke') ? 'DC' : 'CC';
+                const finalTotal = (cokeQuantity * pricePerBottle) + (dietQuantity * pricePerBottle);
+                const selectedPayment = 'Razorpay';
+
+                const custName = document.getElementById('cust-name') ? document.getElementById('cust-name').value : '';
+                const custPhone = document.getElementById('cust-phone') ? document.getElementById('cust-phone').value : '';
+                const custEmail = document.getElementById('cust-email') ? document.getElementById('cust-email').value : '';
+                const custAddress = document.getElementById('cust-address') ? document.getElementById('cust-address').value : '';
+
+                // Prepaid payment: Card / UPI (Always open Razorpay)
+                submitBtn.disabled = true;
+                submitBtn.innerText = 'Processing Payment...';
+
+                const options = {
+                    key: RAZORPAY_KEY_ID,
+                    amount: Math.round(finalTotal * 100), // paise
+                    currency: 'INR',
+                    name: 'Coca-Cola Company',
+                    description: 'Order Purchase',
+                    prefill: {
+                        name: custName,
+                        email: custEmail,
+                        contact: custPhone
+                    },
+                    theme: {
+                        color: product === 'diet-coke' ? '#000000' : '#ff5449'
+                    },
+                    handler: function (response) {
+                        saveToSupabase('orders', {
+                            order_number: `${orderPrefix}-${randNum}`,
+                            customer_name: custName,
+                            customer_phone: custPhone,
+                            customer_email: custEmail,
+                            shipping_address: custAddress,
+                            payment_method: selectedPayment,
+                            coke_quantity: cokeQuantity,
+                            diet_quantity: dietQuantity,
+                            total_price: finalTotal,
+                            razorpay_payment_id: response.razorpay_payment_id,
+                            razorpay_order_id: response.razorpay_order_id || '',
+                            razorpay_signature: response.razorpay_signature || ''
+                        });
+
+                        showSuccessScreen(`${selectedPayment} (Paid)`);
+
+                        submitBtn.disabled = false;
+                        submitBtn.innerText = 'Complete Purchase';
+                    },
+                    modal: {
+                        ondismiss: function () {
+                            submitBtn.disabled = false;
+                            submitBtn.innerText = 'Complete Purchase';
+                        }
+                    }
+                };
+
+                const rzp = new Razorpay(options);
+                rzp.open();
+
+                function showSuccessScreen(paymentLabel) {
+                    successOrderNum.innerText = `#${orderPrefix}-${randNum}`;
+                    const successItemsList = document.getElementById('success-items-list');
+                    if (successItemsList) {
+                        successItemsList.innerHTML = '';
+                        if (cokeQuantity > 0) successItemsList.innerHTML += `<div class="flex justify-between pb-1"><span class="opacity-60">Coca-Cola Original</span><span class="font-bold">${cokeQuantity} Can${cokeQuantity > 1 ? 's' : ''}</span></div>`;
+                        if (dietQuantity > 0) successItemsList.innerHTML += `<div class="flex justify-between pb-1"><span class="opacity-60">Diet Coke Silver</span><span class="font-bold">${dietQuantity} Can${dietQuantity > 1 ? 's' : ''}</span></div>`;
+                    }
+                    successTotal.innerText = `INR ${finalTotal.toFixed(2)}`;
+                    successPayment.innerText = paymentLabel;
+                    checkoutView.classList.add('hidden');
+                    successView.classList.remove('hidden');
+                    checkoutCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

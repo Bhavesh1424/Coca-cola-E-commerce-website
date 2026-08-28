@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Coca-Cola | Iconic Refreshment</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#909191",
+                        "secondary-fixed-dim": "#c6c6c6",
+                        "on-primary-fixed-variant": "#93000a",
+                        "on-secondary": "#303030",
+                        "on-secondary-fixed-variant": "#474747",
+                        "primary-container": "#ff5449",
+                        "surface-container-lowest": "#0e0e0e",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#ffdad6",
+                        "surface": "#131313",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "secondary": "#c6c6c6",
+                        "inverse-on-surface": "#313030",
+                        "surface-bright": "#393939",
+                        "surface-container-high": "#2a2a2a",
+                        "inverse-primary": "#c00011",
+                        "background": "#131313",
+                        "surface-container-low": "#1c1b1b",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#1b1b1b",
+                        "on-primary-fixed": "#410002",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "secondary-container": "#474747",
+                        "on-surface": "#e5e2e1",
+                        "on-surface-variant": "#eabcb6",
+                        "tertiary": "#c6c6c7",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "on-error": "#690005",
+                        "outline-variant": "#5f3e3a",
+                        "secondary-fixed": "#e2e2e2",
+                        "on-background": "#e5e2e1",
+                        "on-primary-container": "#5c0003",
+                        "on-tertiary-container": "#282a2a",
+                        "tertiary-fixed": "#e2e2e2",
+                        "surface-tint": "#ffb4ab",
+                        "surface-variant": "#353535",
+                        "on-secondary-container": "#b5b5b5",
+                        "surface-container-highest": "#353535",
+                        "outline": "#b18782",
+                        "error-container": "#93000a",
+                        "surface-container": "#20201f",
+                        "primary-fixed-dim": "#ffb4ab",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-dim": "#131313",
+                        "primary": "#ffb4ab",
+                        "on-primary": "#690005",
+                        "on-tertiary": "#2f3131"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "container-max-width": "1280px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "48px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "label-bold": ["Inter"],
+                        "headline-md": ["Montserrat"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Montserrat"],
+                        "display-lg": ["Montserrat"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            overflow-x: hidden;
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at center, #93000a 0%, #131313 70%);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .coke-red-btn {
+            background-color: #ff5449;
+            transition: all 0.3s ease;
+        }
+        .coke-red-btn:hover {
+            background-color: #93000a;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="font-body-md">
+<!-- Shared Header (Modified slightly for theme integration while maintaining logic) -->
+<header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-surface-variant px-6 md:px-20 py-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 text-primary">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z"></path>
+</svg>
+</div>
+<h2 class="font-display-lg text-lg tracking-tighter uppercase font-black text-on-surface">Coca-Cola</h2>
+</div>
+<nav class="hidden md:flex items-center gap-10 font-label-bold text-on-surface-variant">
+<a class="hover:text-primary transition-colors" href="#">Products</a>
+<a class="hover:text-primary transition-colors" href="#">Our Story</a>
+<a class="hover:text-primary transition-colors" href="#">Sustainability</a>
+<a class="hover:text-primary transition-colors" href="#">Shop</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="coke-red-btn px-6 py-2 rounded-lg font-label-bold text-white uppercase tracking-wider">Buy Now</button>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden hero-gradient">
+<div class="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center z-10">
+<div class="space-y-8 animate-fade-in-up">
+<h1 class="font-display-lg text-white leading-none">
+                        Iconic <span class="text-primary">Refreshment.</span><br/>Pure Magic.
+                    </h1>
+<p class="font-body-lg text-on-surface-variant max-w-lg">
+                        Experience the timeless taste that brings the world together. Every bubble, every drop, a celebration of moments that matter.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<button class="coke-red-btn px-8 py-4 rounded-xl font-label-bold text-lg text-white">Discover More</button>
+<button class="border-2 border-outline-variant hover:bg-surface-container-highest px-8 py-4 rounded-xl font-label-bold text-lg text-white transition-all">Buy Now</button>
+</div>
+</div>
+<div class="relative flex justify-center items-center h-[500px] lg:h-[700px]">
+<div class="absolute w-[120%] h-[120%] opacity-20 pointer-events-none">
+
+</div>
+<img class="z-20 w-auto h-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-700" data-alt="A cinematic, high-resolution product shot of a classic glass Coca-Cola bottle with condensation and ice crystals, centered in a dramatic dark studio setting with intense red rim lighting. The lighting highlights the iconic curves of the bottle and the effervescent bubbles inside. The overall aesthetic is sleek, premium, and intensely refreshing, matching the deep red and black brand palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuiY1kCRTGJJ3jfVUnh2RzCL4I8UwRGIQYglVwUwZGiAItKS1husNmP0D11L_PZYb91AB7FrCkpfzEcyyY_bHhWMdxPnFhTojpxQXGivDfHwqYqv_va9dX9q-pcw9-fCJlhTMT1N9q0DccJSSuH6oLF6han8rRihgBUs8t3EVW17rvAaynZ0_sQwOzpo1M7lmMaDlzvpzxvZVfFKijwQQ494ohvf7aoBCjUGlo9Q2PB0DK-QHs7knkIA"/>
+</div>
+</div>
+</section>
+<!-- Features Section -->
+<section class="py-24 bg-surface-container-lowest">
+<div class="container mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="font-headline-lg text-white mb-4">The Coke Experience</h2>
+<p class="font-body-lg text-on-surface-variant max-w-2xl mx-auto">More than just a drink, it's a moment of connection crafted through over a century of passion.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Feature 1 -->
+<div class="group bg-surface-container rounded-3xl p-8 hover:bg-surface-container-high transition-all duration-300 border border-transparent hover:border-outline-variant">
+<div class="w-full h-64 rounded-2xl mb-6 overflow-hidden bg-surface-variant">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500" data-alt="A crisp, cold glass of Coca-Cola being poured over perfectly shaped ice cubes. The focus is on the golden effervescence and the tiny condensation droplets forming on the exterior of the glass in a high-key, modern lighting setup. The color scheme is dominated by rich amber and crimson tones against a dark, minimalist background." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBfviDHUUYNAd00VIr1FHGyhLeNDjZKvErvoalz4xbEpCsTHFJcoGejpIfQe2UKXkZQCTgYAzsEvtQu7kPdYniT9G8uFcd3kAPfeXLL6dILJvrUrdWVdtQ614oIHDTNpSwiRBjIjijVYoch5ythfDK4tR_LA1R_1P7rZvOPYhYdzleXYNKjUgzj0d6EXeRHW1AjtTOsN2TaObK8J3m4Dts_CiQsbHNg0O6NxGDSRDH3Efw6l4BJK-xjzQ')"></div>
+</div>
+<h3 class="font-headline-md text-2xl text-white mb-3">The Perfect Serve</h3>
+<p class="font-body-md text-on-surface-variant">Enjoy the classic 3°C temperature for maximum crispness. Precision chilling ensures every sip is as revitalizing as the first.</p>
+</div>
+<!-- Feature 2 -->
+<div class="group bg-surface-container rounded-3xl p-8 hover:bg-surface-container-high transition-all duration-300 border border-transparent hover:border-outline-variant">
+<div class="w-full h-64 rounded-2xl mb-6 overflow-hidden bg-surface-variant">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500" data-alt="An artistic flat-lay representation of Coca-Cola's heritage ingredients and iconic branding elements. Subtle hints of spice and vanilla are suggested through stylized abstract shapes and textures. The composition uses a sophisticated dark-mode palette with deep reds and obsidian blacks, emphasizing a premium and mysterious vibe for the secret formula." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB1BcvQfmLKBZQFBLopy5qMolplWA28G9mPbR7LuT6YBaZ1t4eTR1Z3kTtq0zPwUlpFrh9TISgk5mS72ubVgDEZZJwbpxx-RlEL9M4nD8z5WAvkNJSHITVb9LTmA0iOzqFU5FmvT15sUjtV6Tp1w3HlAD1BB5AEu32D7wbUBD6WYwjMtG2aiWhFGKu-ps8uZjahGywtk58fYuYOZ7MR5OXrtRhlsgWoG9TGyhc9hg4tTy-1dZl7MZWfsw')"></div>
+</div>
+<h3 class="font-headline-md text-2xl text-white mb-3">Original Taste</h3>
+<p class="font-body-md text-on-surface-variant">Celebrating the unique recipe and secret formula since 1886. A taste that has remained unchanged, delivering magic across generations.</p>
+</div>
+<!-- Feature 3 -->
+<div class="group bg-surface-container rounded-3xl p-8 hover:bg-surface-container-high transition-all duration-300 border border-transparent hover:border-outline-variant">
+<div class="w-full h-64 rounded-2xl mb-6 overflow-hidden bg-surface-variant">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500" data-alt="A warm, candid photograph of a diverse group of friends laughing together around a table in a modern, warmly lit urban setting. They are all holding glasses of Coca-Cola, with the iconic red labels glowing softly in the twilight. The mood is joyful, community-focused, and authentic, capturing a genuine moment of connection and happiness." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBC-mP2ZNxoI76FPQ3ZuuH8XJ_jvq3Oy58_-0u6ogLbq1wlqGhGyjlOuqCCw2SFL8jD5YVnpwWzBVvQPnn-DDknec3sf7OrN2214f9FKS_ITScaD9xpqhdZOXmq5YKVr_VCAon3cwWuLdDeb3A9y2D6hF8IfkNab5X9N55HYWdeKlCXyyL3VEDWBgNwHF5F_LcmiqXNZ67KFQFOlADVHpYYDRtTwiyGSGsPd0SESHa6Ts4JtWTas82xhA')"></div>
+</div>
+<h3 class="font-headline-md text-2xl text-white mb-3">Better Together</h3>
+<p class="font-body-md text-on-surface-variant">The spark that brings friends and family closer together. Coca-Cola is the companion to your most cherished memories and social gatherings.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact & Newsletter Section -->
+<section class="py-24 relative overflow-hidden hero-gradient">
+<div class="container mx-auto px-6 text-center relative z-10">
+<div class="max-w-3xl mx-auto space-y-8">
+<h2 class="font-display-lg text-5xl md:text-7xl font-black text-white tracking-tighter uppercase">
+                Beat the Summer, <span class="text-primary">Keep your Cool</span>
+</h2>
+<p class="font-body-lg text-on-surface-variant text-lg md:text-xl">
+                Nothing beats the heat like a perfectly chilled Coca-Cola. Crisp, cold, and refreshing.
+            </p>
+<div class="pt-4">
+<a class="inline-block coke-red-btn px-10 py-5 rounded-2xl font-label-bold text-xl text-white uppercase tracking-widest shadow-2xl hover:scale-105 transition-transform" href="#buy-now">
+                    Grab yours now
+                </a>
+</div>
+</div>
+</div>
+<div class="absolute inset-0 opacity-30 pointer-events-none">
+<div class="absolute inset-0 bg-gradient-to-b from-transparent to-surface-container-lowest"></div>
+</div>
+</section><section class="py-24 relative overflow-hidden">
+<div class="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20">
+<!-- Contact Info -->
+<div class="space-y-10">
+<div>
+<h2 class="font-headline-lg text-white mb-4">Get in Touch</h2>
+<p class="font-body-lg text-on-surface-variant">Have questions about our magic? Reach out to our team anytime.</p>
+</div>
+<div class="space-y-6">
+<div class="flex items-center gap-6 group">
+<div class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+</div>
+<div>
+<p class="font-label-bold text-on-surface-variant uppercase text-xs">Email Us</p>
+<p class="text-lg font-bold text-white">info@coca-cola.com</p>
+</div>
+</div>
+<div class="flex items-center gap-6 group">
+<div class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined" data-icon="call">call</span>
+</div>
+<div>
+<p class="font-label-bold text-on-surface-variant uppercase text-xs">Call Us</p>
+<p class="text-lg font-bold text-white">1-800-GET-COKE</p>
+</div>
+</div>
+</div>
+<div class="flex gap-4">
+<a class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center hover:bg-primary hover:border-primary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="public">public</span>
+</a>
+<a class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center hover:bg-primary hover:border-primary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</a>
+<a class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center hover:bg-primary hover:border-primary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="thumb_up">thumb_up</span>
+</a>
+</div>
+</div>
+<!-- Form -->
+<div class="glass-panel p-8 md:p-12 rounded-[2rem] border border-outline-variant">
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="font-label-bold text-on-surface-variant text-sm">Full Name</label>
+<input class="w-full bg-surface-container border-none focus:ring-2 focus:ring-primary rounded-xl py-4 px-6 text-white placeholder:text-on-tertiary-container" placeholder="John Doe" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-bold text-on-surface-variant text-sm">Email Address</label>
+<input class="w-full bg-surface-container border-none focus:ring-2 focus:ring-primary rounded-xl py-4 px-6 text-white placeholder:text-on-tertiary-container" placeholder="john@example.com" type="email"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-bold text-on-surface-variant text-sm">Subject</label>
+<select class="w-full bg-surface-container border-none focus:ring-2 focus:ring-primary rounded-xl py-4 px-6 text-white">
+<option>Product Feedback</option>
+<option>Business Inquiry</option>
+<option>Sustainability Question</option>
+<option>Other</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="font-label-bold text-on-surface-variant text-sm">Message</label>
+<textarea class="w-full bg-surface-container border-none focus:ring-2 focus:ring-primary rounded-xl py-4 px-6 text-white placeholder:text-on-tertiary-container resize-none" placeholder="Tell us how we can help..." rows="4"></textarea>
+</div>
+<button class="w-full coke-red-btn py-4 rounded-xl font-label-bold text-white uppercase tracking-widest text-lg" type="submit">Send Message</button>
+</form>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-surface-variant py-16">
+<div class="container mx-auto px-6">
+<div class="flex flex-col md:flex-row justify-between items-center gap-10">
+<div class="flex flex-col items-center md:items-start gap-4">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 text-primary">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z"></path>
+</svg>
+</div>
+<h2 class="font-display-lg text-lg tracking-tighter uppercase font-black text-white">Coca-Cola</h2>
+</div>
+<p class="text-on-surface-variant text-sm text-center md:text-left">© 2024 The Coca-Cola Company. All rights reserved.</p>
+</div>
+<nav class="flex flex-wrap justify-center gap-8 text-on-surface-variant font-label-bold text-sm">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Cookie Settings</a>
+<a class="hover:text-primary transition-colors" href="#">Sitemap</a>
+</nav>
+<div class="flex gap-4">
+<div class="size-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-white transition-colors cursor-pointer">
+<span class="material-symbols-outlined" data-icon="facebook">qr_code_2</span>
+</div>
+<div class="size-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-white transition-colors cursor-pointer">
+<span class="material-symbols-outlined" data-icon="camera">camera</span>
+</div>
+<div class="size-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-white transition-colors cursor-pointer">
+<span class="material-symbols-outlined" data-icon="language">language</span>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions and reveals
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                        entry.target.classList.remove('opacity-0', 'translate-y-10');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.group').forEach(el => {
+                el.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-700');
+                observer.observe(el);
+            });
+        });
+    </script>
+</body></html>

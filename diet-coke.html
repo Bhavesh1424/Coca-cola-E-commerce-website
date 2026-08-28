@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Experience the refreshing scroll journey of Coca-Cola and Diet Coke.">
+    <title>Coca-Cola | Taste the Feeling</title>
+    
+    <!-- Tailwind CSS Script CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Google Fonts & Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="style.css?v=1.6.0">
+    
+    <!-- Tailwind Theme Configuration -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#909191",
+                        "secondary-fixed-dim": "#c6c6c6",
+                        "on-primary-fixed-variant": "#93000a",
+                        "on-secondary": "#303030",
+                        "on-secondary-fixed-variant": "#474747",
+                        "primary-container": "#ff5449",
+                        "surface-container-lowest": "#0e0e0e",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#ffdad6",
+                        "surface": "#131313",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "secondary": "#c6c6c6",
+                        "inverse-on-surface": "#313030",
+                        "surface-bright": "#393939",
+                        "surface-container-high": "#2a2a2a",
+                        "inverse-primary": "#c00011",
+                        "background": "#131313",
+                        "surface-container-low": "#1c1b1b",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#1b1b1b",
+                        "on-primary-fixed": "#410002",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "secondary-container": "#474747",
+                        "on-surface": "#e5e2e1",
+                        "on-surface-variant": "#eabcb6",
+                        "tertiary": "#c6c6c7",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "on-error": "#690005",
+                        "outline-variant": "#5f3e3a",
+                        "secondary-fixed": "#e2e2e2",
+                        "on-background": "#e5e2e1",
+                        "on-primary-container": "#5c0003",
+                        "on-tertiary-container": "#282a2a",
+                        "tertiary-fixed": "#e2e2e2",
+                        "surface-tint": "#ffb4ab",
+                        "surface-variant": "#353535",
+                        "on-secondary-container": "#b5b5b5",
+                        "surface-container-highest": "#353535",
+                        "outline": "#b18782",
+                        "error-container": "#93000a",
+                        "surface-container": "#20201f",
+                        "primary-fixed-dim": "#ffb4ab",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-dim": "#131313",
+                        "primary": "#ffb4ab",
+                        "on-primary": "#690005",
+                        "on-tertiary": "#2f3131"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "container-max-width": "1280px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "48px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "label-bold": ["Inter"],
+                        "headline-md": ["Montserrat"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Montserrat"],
+                        "display-lg": ["Montserrat"]
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Shared transition details */
+        :root {
+            --bg-color: #080808;
+            --coke-red: #F40009;
+            --coke-red-glow: rgba(244, 0, 9, 0.35);
+            --diet-silver: #d1d5db;
+            --diet-silver-glow: rgba(209, 213, 219, 0.35);
+        }
+        
+        body {
+            transition: background-color 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            background-color: var(--bg-color);
+        }
+
+        .view-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .view-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            pointer-events: none;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.8s;
+        }
+
+        .diet-logo-silver {
+            filter: grayscale(100%) contrast(1.5) brightness(1.8);
+        }
+
+        .diet-silver-btn {
+            background-color: var(--diet-silver) !important;
+            color: #111827 !important;
+        }
+
+        .diet-silver-btn:hover {
+            background-color: #f3f4f6 !important;
+            transform: translateY(-2px);
+        }
+
+        .diet-span {
+            color: var(--diet-silver) !important;
+            text-shadow: 0 0 15px var(--diet-silver-glow) !important;
+        }
+
+        /* Specific classes for smooth page transition manager */
+        .content-section-wrapper {
+            transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .title-font {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Dynamic Theme classes for checkout */
+        .coke-theme {
+            background: radial-gradient(circle at center, #2f0709 0%, #070102 100%) !important;
+        }
+
+        .diet-theme {
+            background-color: #F5F5F7 !important;
+        }
+
+        /* Diet Coke light-theme layout overrides */
+        #diet-content {
+            background-color: #F5F5F7;
+            color: #050505;
+        }
+
+        #diet-content .hero-gradient {
+            background: radial-gradient(circle at center, #ffffff 0%, #dcdcdc 100%);
+        }
+
+        #diet-content .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        #diet-content .silver-btn {
+            background: linear-gradient(135deg, #ffffff 0%, #c6c6c6 100%);
+            color: #050505;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            display: inline-block;
+            text-align: center;
+        }
+
+        #diet-content .silver-btn:hover {
+            background: linear-gradient(135deg, #ffffff 0%, #e3e2e2 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        #diet-content .text-obsidian-base {
+            color: #050505 !important;
+        }
+    </style>
+</head>
+<body class="font-body-md">
+
+    <!-- Premium Preloader -->
+    <div id="preloader" role="status" aria-live="polite">
+        <img src="coca-cola-logo.png" alt="Coca-Cola Logo" class="loader-image-logo">
+    </div>
+
+    <!-- Transparent Glass Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-surface-variant px-6 md:px-20 py-4 flex items-center justify-between">
+        <a href="index.html" class="flex items-center" id="nav-logo-link">
+            <img src="coca-cola-logo.png" alt="Coca-Cola Logo" class="h-8 w-auto md:h-10 object-contain mix-blend-screen transition-all duration-800" id="nav-logo-img">
+        </a>
+        <nav class="hidden md:flex items-center gap-10 font-label-bold text-on-surface-variant" id="nav-links">
+            <a class="transition-all duration-300" href="index.html" id="link-home">Home</a>
+            <a class="hover:text-primary transition-colors" href="#experience" id="link-experience">Experience</a>
+            <a class="hover:text-primary transition-colors" href="#banner" id="link-summer">Summer</a>
+            <a class="transition-all duration-300" href="diet-coke.html" id="link-diet">Try Diet Coke</a>
+            <a class="hover:text-primary transition-colors" href="#contact" id="link-contact">Contact</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <a href="#contact" class="border border-white/40 hover:bg-white hover:text-black text-white px-6 py-2 rounded-lg font-label-bold uppercase tracking-wider text-sm transition-all duration-300" id="nav-action-btn">Get in Touch</a>
+            <a href="buy.html?product=original" class="coke-red-btn px-6 py-2 rounded-lg font-label-bold text-white uppercase tracking-wider text-sm transition-all shadow-md" id="nav-buy-btn">Buy Now</a>
+        </div>
+    </header>
+
+    <!-- Fullscreen Fixed Animation Container -->
+    <div class="canvas-container">
+        <!-- Coca-Cola Original Canvas -->
+        <canvas id="coke-canvas" class="view-canvas z-10 opacity-0"></canvas>
+        
+        <!-- Diet Coke Canvas -->
+        <canvas id="diet-canvas" class="view-canvas z-10 opacity-0"></canvas>
+        
+        <!-- Logo & Subheading Overlay (Original Coke Hero) -->
+        <div id="coke-hero-overlay" class="view-overlay opacity-0">
+            <img src="coca-cola-logo.png" alt="Coca-Cola Script Logo" class="hero-logo-img">
+            <p class="hero-subheadline">things go better with Coke</p>
+        </div>
+
+        <!-- Logo & Subheading Overlay (Diet Coke Hero) -->
+        <div id="diet-hero-overlay" class="view-overlay opacity-0">
+            <img src="coca-cola-logo.png" alt="Diet Coke Script Logo" class="hero-logo-img diet-logo-silver">
+            <p class="hero-subheadline">light, crisp & refreshing</p>
+        </div>
+    </div>
+
+    <!-- Scroll Spacer to trigger scroll inputs -->
+    <div class="scroll-spacer"></div>
+
+    <!-- Page Content wrappers -->
+    <div id="coke-content" class="content-section-wrapper relative z-10 bg-background min-h-screen opacity-0 hidden">
+        <!-- Features Section -->
+        <section id="experience" class="py-24 bg-surface-container-lowest">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="font-headline-lg text-4xl md:text-6xl font-black text-white mb-4 tracking-tight uppercase">The Coke Experience</h2>
+                    <p class="font-body-lg text-on-surface-variant max-w-2xl mx-auto">More than just a drink, it's a moment of connection crafted through over a century of passion.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="group bg-surface-container rounded-[2rem] p-8 hover:bg-surface-container-high transition-all duration-300 border border-transparent hover:border-outline-variant">
+                        <div class="w-full h-64 rounded-2xl mb-6 overflow-hidden bg-surface-variant">
+                            <div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500" style="background-image: url('perfect.jpg')"></div>
+                        </div>
+                        <h3 class="font-headline-md text-2xl text-white mb-3 font-bold">The Perfect Serve</h3>
+                        <p class="font-body-md text-on-surface-variant">Enjoy the classic 3°C temperature for maximum crispness. Precision chilling ensures every sip is as revitalizing as the first.</p>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="group bg-surface-container rounded-[2rem] p-8 hover:bg-surface-container-high transition-all duration-300 border border-transparent hover:border-outline-variant">
+                        <div class="w-full h-64 rounded-2xl mb-6 overflow-hidden bg-surface-variant">
+                            <div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB1BcvQfmLKBZQFBLopy5qMolplWA28G9mPbR7LuT6YBaZ1t4eTR1Z3kTtq0zPwUlpFrh9TISgk5mS72ubVgDEZZJwbpxx-RlEL9M4nD8z5WAvkNJSHITVb9LTmA0iOzqFU5FmvT15sUjtV6Tp1w3HlAD1BB5AEu32D7wbUBD6WYwjMtG2aiWhFGKu-ps8uZjahGywtk58fYuYOZ7MR5OXrtRhlsgWoG9TGyhc9hg4tTy-1dZl7MZWfsw')"></div>
+                        </div>
+                        <h3 class="font-headline-md text-2xl text-white mb-3 font-bold">Original Taste</h3>
+                        <p class="font-body-md text-on-surface-variant">Celebrating the unique recipe and secret formula since 1886. A taste that has remained unchanged, delivering magic across generations.</p>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="group bg-surface-container rounded-[2rem] p-8 hover:bg-surface-container-high transition-all duration-300 border border-transparent hover:border-outline-variant">
+                        <div class="w-full h-64 rounded-2xl mb-6 overflow-hidden bg-surface-variant">
+                            <div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBC-mP2ZNxoI76FPQ3ZuuH8XJ_jvq3Oy58_-0u6ogLbq1wlqGhGyjlOuqCCw2SFL8jD5YVnpwWzBVvQPnn-DDknec3sf7OrN2214f9FKS_ITScaD9xpqhdZOXmq5YKVr_VCAon3cwWuLdDeb3A9y2D6hF8IfkNab5X9N55HYWdeKlCXyyL3VEDWBgNwHF5F_LcmiqXNZ67KFQFOlADVHpYYDRtTwiyGSGsPd0SESHa6Ts4JtWTas82xhA')"></div>
+                        </div>
+                        <h3 class="font-headline-md text-2xl text-white mb-3 font-bold">Better Together</h3>
+                        <p class="font-body-md text-on-surface-variant">The spark that brings friends and family closer together. Coca-Cola is the companion to your most cherished memories and social gatherings.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action (Summer) Banner Section -->
+        <section id="banner" class="py-24 relative overflow-hidden hero-gradient">
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <div class="max-w-3xl mx-auto space-y-8">
+                    <h2 class="font-display-lg text-5xl md:text-7xl font-black text-white tracking-tighter uppercase">
+                        Beat the Summer, <span class="text-primary">Keep your Cool</span>
+                    </h2>
+                    <p class="font-body-lg text-on-surface-variant text-lg md:text-xl">
+                        Nothing beats the heat like a perfectly chilled Coca-Cola. Crisp, cold, and refreshing.
+                    </p>
+                    <div class="pt-4">
+                        <a class="inline-block coke-red-btn px-10 py-5 rounded-2xl font-label-bold text-xl text-white uppercase tracking-widest shadow-2xl hover:scale-105 transition-transform" href="buy.html?product=original">
+                            Grab yours now
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute inset-0 opacity-30 pointer-events-none">
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent to-surface-container-lowest"></div>
+            </div>
+        </section>
+
+        <!-- Contact & Newsletter Section -->
+        <section id="contact" class="py-24 relative overflow-hidden">
+            <div class="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20">
+                <!-- Contact Info -->
+                <div class="space-y-10">
+                    <div>
+                        <h2 class="font-headline-lg text-4xl font-black text-white mb-4 uppercase">Get in Touch</h2>
+                        <p class="font-body-lg text-on-surface-variant">Have questions about our magic? Reach out to our team anytime.</p>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-6 group">
+                            <div class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-label-bold text-on-surface-variant uppercase text-xs">Email Us</p>
+                                <p class="text-lg font-bold text-white">info@coca-cola.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-6 group">
+                            <div class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-label-bold text-on-surface-variant uppercase text-xs">Call Us</p>
+                                <p class="text-lg font-bold text-white">1-800-GET-COKE</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <a class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center hover:bg-primary hover:border-primary transition-all text-white" href="#" aria-label="Web">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.6 9h16.8M3.6 15h16.8M12 3a15.3 15.3 0 014 9 15.3 15.3 0 01-4 9 15.3 15.3 0 01-4-9 15.3 15.3 0 014-9z"/>
+                            </svg>
+                        </a>
+                        <a class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center hover:bg-primary hover:border-primary transition-all text-white" href="#" aria-label="Share">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 10.742l4.628-2.314m0 0a3 3 0 10-2.243-4.077L7.54 6.75a3 3 0 100 4.5l5.529 2.765a3 3 0 102.243-4.077z"/>
+                            </svg>
+                        </a>
+                        <a class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center hover:bg-primary hover:border-primary transition-all text-white" href="#" aria-label="Like">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="glass-panel p-8 md:p-12 rounded-[2rem] border border-outline-variant min-h-[480px] flex flex-col justify-center">
+                    <form id="contact-form" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="font-label-bold text-on-surface-variant text-sm">Full Name</label>
+                                <input required class="w-full bg-surface-container border-none focus:ring-2 focus:ring-primary rounded-xl py-4 px-6 text-white placeholder:text-on-tertiary-container" placeholder="John Doe" type="text"/>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="font-label-bold text-on-surface-variant text-sm">Email Address</label>
+                                <input required class="w-full bg-surface-container border-none focus:ring-2 focus:ring-primary rounded-xl py-4 px-6 text-white placeholder:text-on-tertiary-container" placeholder="john@example.com" type="email"/>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="font-label-bold text-on-surface-variant text-sm">Subject</label>
+                            <select class="w-full bg-surface-container border-none focus:ring-2 focus:ring-primary rounded-xl py-4 px-6 text-white">
+                                <option>Product Feedback</option>
+                                <option>Business Inquiry</option>
+                                <option>Sustainability Question</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="font-label-bold text-on-surface-variant text-sm">Message</label>
+                            <textarea required class="w-full bg-surface-container border-none focus:ring-2 focus:ring-primary rounded-xl py-4 px-6 text-white placeholder:text-on-tertiary-container resize-none" placeholder="Tell us how we can help..." rows="4"></textarea>
+                        </div>
+                        <button class="w-full coke-red-btn py-4 rounded-xl font-label-bold text-white uppercase tracking-widest text-lg" type="submit">Send Message</button>
+                    </form>
+
+                    <!-- Success Message Overlay -->
+                    <div id="success-message" class="hidden flex flex-col items-center justify-center text-center py-12 space-y-6">
+                        <div class="success-tick-wrapper">
+                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-display-lg text-2xl font-black text-white uppercase tracking-wider">Thank you for your response!</h3>
+                        <p class="font-body-md text-on-surface-variant max-w-sm">We've received your message and our team will get back to you shortly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-surface-container-lowest border-t border-surface-variant py-16">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-10">
+                    <div class="flex flex-col items-center md:items-start gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-6 h-6 text-primary">
+                                <svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z"></path>
+                                </svg>
+                            </div>
+                            <h2 class="font-display-lg text-lg tracking-tighter uppercase font-black text-white">Coca-Cola</h2>
+                        </div>
+                        <p class="text-on-surface-variant text-sm text-center md:text-left">© 2024 The Coca-Cola Company. All rights reserved.</p>
+                    </div>
+                    <nav class="flex flex-wrap justify-center gap-8 text-on-surface-variant font-label-bold text-sm">
+                        <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+                        <a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+                        <a class="hover:text-primary transition-colors" href="#">Cookie Settings</a>
+                        <a class="hover:text-primary transition-colors" href="#">Sitemap</a>
+                        <a class="hover:text-primary transition-colors" href="admin.html">Admin Portal</a>
+                    </nav>
+                    <div class="flex gap-4">
+                        <div class="size-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-white transition-colors cursor-pointer" aria-label="Facebook">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/>
+                            </svg>
+                        </div>
+                        <div class="size-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-white transition-colors cursor-pointer" aria-label="Instagram">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01"/>
+                            </svg>
+                        </div>
+                        <div class="size-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-white transition-colors cursor-pointer" aria-label="Twitter">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Page Content wrappers (Diet Coke) -->
+    <div id="diet-content" class="content-section-wrapper relative z-10 min-h-screen opacity-0 hidden">
+        <!-- Features Section -->
+        <section id="diet-experience-section" class="py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="font-headline-lg text-4xl md:text-6xl font-black text-obsidian-base mb-4 tracking-tight uppercase">The Diet Coke Experience</h2>
+                    <p class="font-body-lg text-gray-700 max-w-2xl mx-auto">Crisp, sugar-free, and undeniably refreshing. Discover the light, bold taste that has defined modern refreshment for generations.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="group bg-gray-50 rounded-3xl p-8 hover:bg-gray-100 transition-all duration-300 border border-transparent hover:border-gray-300">
+                        <div class="w-full h-64 rounded-2xl mb-6 overflow-hidden bg-gray-200">
+                            <div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500" style="background-image: url('diet coke 3.jpg')"></div>
+                        </div>
+                        <h3 class="font-headline-md text-2xl text-obsidian-base mb-3 text-obsidian-base">Zero Sugar, Full Flavor</h3>
+                        <p class="font-body-md text-gray-700">The iconic taste you love with absolutely zero sugar. A perfectly balanced blend that delivers maximum refreshment without compromise.</p>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="group bg-gray-50 rounded-3xl p-8 hover:bg-gray-100 transition-all duration-300 border border-transparent hover:border-gray-300">
+                        <div class="w-full h-64 rounded-2xl mb-6 overflow-hidden bg-gray-200">
+                            <div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500" style="background-image: url('diet coke 1.jpg')"></div>
+                        </div>
+                        <h3 class="font-headline-md text-2xl text-obsidian-base mb-3 text-obsidian-base">Modern Refreshment</h3>
+                        <p class="font-body-md text-gray-700">Designed for the fast-paced world. Diet Coke is the sophisticated choice for those who demand a crisp, clean lift throughout their day.</p>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="group bg-gray-50 rounded-3xl p-8 hover:bg-gray-100 transition-all duration-300 border border-transparent hover:border-gray-300">
+                        <div class="w-full h-64 rounded-2xl mb-6 overflow-hidden bg-gray-200">
+                            <div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500" style="background-image: url('diet coke 2.jpg')"></div>
+                        </div>
+                        <h3 class="font-headline-md text-2xl text-obsidian-base mb-3 text-obsidian-base">Crisp Silver Lift</h3>
+                        <p class="font-body-md text-gray-700">Experience the unique effervescence that only comes in a silver can. A light, bubbly sensation that sparks joy in every sip.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action Banner Section -->
+        <section class="py-24 relative overflow-hidden hero-gradient">
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <div class="max-w-3xl mx-auto space-y-8">
+                    <h2 class="font-display-lg text-5xl md:text-7xl font-black text-obsidian-base tracking-tighter uppercase text-obsidian-base">BOLDLY CHILL, <span class="text-gray-500">ZERO SUGAR</span></h2>
+                    <p class="font-body-lg text-obsidian-base text-lg md:text-xl">
+                        Nothing beats the heat like a perfectly chilled Coca-Cola. Crisp, cold, and refreshing.
+                    </p>
+                    <div class="pt-4">
+                        <a class="inline-block silver-btn px-10 py-5 rounded-2xl font-label-bold text-xl uppercase tracking-widest shadow-2xl hover:scale-105 transition-transform" href="buy.html?product=diet-coke">
+                            Grab yours now
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute inset-0 opacity-30 pointer-events-none">
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent to-white"></div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact-diet-section" class="py-24 relative overflow-hidden bg-chrome-bright">
+            <div class="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20">
+                <!-- Contact Info -->
+                <div class="space-y-10">
+                    <div>
+                        <h2 class="font-headline-lg text-obsidian-base mb-4 text-obsidian-base">Get in Touch</h2>
+                        <p class="font-body-lg text-gray-700">Have questions about our magic? Reach out to our team anytime.</p>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-6 group">
+                            <div class="w-14 h-14 rounded-full bg-gray-200 flex items-center justify-center text-obsidian-base group-hover:bg-obsidian-base group-hover:text-white transition-all">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-label-bold text-gray-600 uppercase text-xs">Email Us</p>
+                                <p class="text-lg font-bold text-obsidian-base text-obsidian-base">info@coca-cola.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-6 group">
+                            <div class="w-14 h-14 rounded-full bg-gray-200 flex items-center justify-center text-obsidian-base group-hover:bg-obsidian-base group-hover:text-white transition-all">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-label-bold text-gray-600 uppercase text-xs">Call Us</p>
+                                <p class="text-lg font-bold text-obsidian-base text-obsidian-base">1-800-GET-COKE</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <a class="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center hover:bg-obsidian-base hover:border-obsidian-base hover:text-white transition-all text-obsidian-base" href="#" aria-label="Web">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.6 9h16.8M3.6 15h16.8M12 3a15.3 15.3 0 014 9 15.3 15.3 0 01-4 9 15.3 15.3 0 01-4 9 15.3 15.3 0 014-9z"/>
+                            </svg>
+                        </a>
+                        <a class="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center hover:bg-obsidian-base hover:border-obsidian-base hover:text-white transition-all text-obsidian-base" href="#" aria-label="Share">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 10.742l4.628-2.314m0 0a3 3 0 10-2.243-4.077L7.54 6.75a3 3 0 100 4.5l5.529 2.765a3 3 0 102.243-4.077z"/>
+                            </svg>
+                        </a>
+                        <a class="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center hover:bg-obsidian-base hover:border-obsidian-base hover:text-white transition-all text-obsidian-base" href="#" aria-label="Like">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <!-- Form -->
+                <div class="glass-panel p-8 md:p-12 rounded-[2rem] border border-gray-200">
+                    <form id="contact-form-diet" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="font-label-bold text-obsidian-base text-sm text-obsidian-base">Full Name</label>
+                                <input required class="w-full bg-white border border-gray-300 focus:ring-2 focus:ring-gray-400 rounded-xl py-4 px-6 text-obsidian-base placeholder:text-gray-400" placeholder="John Doe" type="text">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="font-label-bold text-obsidian-base text-sm text-obsidian-base">Email Address</label>
+                                <input required class="w-full bg-white border border-gray-300 focus:ring-2 focus:ring-gray-400 rounded-xl py-4 px-6 text-obsidian-base placeholder:text-gray-400" placeholder="john@example.com" type="email">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="font-label-bold text-obsidian-base text-sm text-obsidian-base">Subject</label>
+                            <select class="w-full bg-white border border-gray-300 focus:ring-2 focus:ring-gray-400 rounded-xl py-4 px-6 text-obsidian-base">
+                                <option>Product Feedback</option>
+                                <option>Business Inquiry</option>
+                                <option>Sustainability Question</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="font-label-bold text-obsidian-base text-sm text-obsidian-base">Message</label>
+                            <textarea required class="w-full bg-white border border-gray-300 focus:ring-2 focus:ring-gray-400 rounded-xl py-4 px-6 text-obsidian-base placeholder:text-gray-400 resize-none" placeholder="Tell us how we can help..." rows="4"></textarea>
+                        </div>
+                        <button class="w-full silver-btn py-4 rounded-xl font-label-bold uppercase tracking-widest text-lg" type="submit">Send Message</button>
+                    </form>
+
+                    <!-- Success Message Overlay -->
+                    <div id="success-message-diet" class="hidden flex flex-col items-center justify-center text-center py-12 space-y-6">
+                        <div class="success-tick-wrapper">
+                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-display-lg text-2xl font-black text-obsidian-base uppercase tracking-wider text-obsidian-base">Thank you for your response!</h3>
+                        <p class="font-body-md text-gray-700 max-w-sm">We've received your message and our team will get back to you shortly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-white border-t border-gray-200 py-16">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-10">
+                    <div class="flex flex-col items-center md:items-start gap-4">
+                        <div class="flex items-center gap-3">
+                            <h2 class="font-display-lg text-lg tracking-tighter uppercase font-black text-obsidian-base">Diet Coke</h2>
+                        </div>
+                        <p class="text-gray-600 text-sm text-center md:text-left">© 2024 The Coca-Cola Company. All rights reserved.</p>
+                    </div>
+                    <nav class="flex flex-wrap justify-center gap-8 text-gray-600 font-label-bold text-sm">
+                        <a class="hover:text-obsidian-base transition-colors" href="#">Privacy Policy</a>
+                        <a class="hover:text-obsidian-base transition-colors" href="#">Terms of Service</a>
+                        <a class="hover:text-obsidian-base transition-colors" href="#">Cookie Settings</a>
+                        <a class="hover:text-obsidian-base transition-colors" href="#">Sitemap</a>
+                        <a class="hover:text-obsidian-base transition-colors" href="admin.html">Admin Portal</a>
+                    </nav>
+                    <div class="flex gap-4">
+                        <div class="size-10 rounded-lg bg-gray-100 flex items-center justify-center text-gray-600 hover:text-obsidian-base hover:bg-gray-200 transition-colors cursor-pointer" aria-label="Facebook">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/>
+                            </svg>
+                        </div>
+                        <div class="size-10 rounded-lg bg-gray-100 flex items-center justify-center text-gray-600 hover:text-obsidian-base hover:bg-gray-200 transition-colors cursor-pointer" aria-label="Instagram">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01"/>
+                            </svg>
+                        </div>
+                        <div class="size-10 rounded-lg bg-gray-100 flex items-center justify-center text-gray-600 hover:text-obsidian-base hover:bg-gray-200 transition-colors cursor-pointer" aria-label="Twitter">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Checkout Content Wrapper -->
+    <div id="checkout-content" class="content-section-wrapper relative z-10 min-h-screen opacity-0 hidden">
+        <!-- Header Navigation (Checkout specific) -->
+        <header class="w-full px-6 py-6 md:px-16 flex items-center justify-between border-b transition-colors duration-500" id="checkout-header">
+            <a href="#" class="flex items-center gap-2 group text-sm font-semibold hover:opacity-80 transition-opacity" id="checkout-back-link">
+                <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                </svg>
+                <span>Back to Home</span>
+            </a>
+            <div class="text-center font-bold tracking-wider uppercase title-font text-lg font-headline-lg" id="checkout-logo-branding">
+                COCA-COLA
+            </div>
+            <div class="w-20"></div> <!-- Spacer for balancing back link -->
+        </header>
+
+        <!-- Main Checkout Content -->
+        <main class="container mx-auto px-6 py-12 max-w-6xl">
+            <!-- Main Form & Card Panel -->
+            <div id="checkout-main-card" class="rounded-[2.5rem] p-8 md:p-12 shadow-2xl transition-all duration-500">
+                <div id="checkout-inner-view" class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    
+                    <!-- Left Column: Shipping & Payment Details -->
+                    <div class="lg:col-span-7 space-y-8">
+                        <div>
+                            <h1 class="title-font text-3xl font-black uppercase tracking-tight mb-2">Checkout Details</h1>
+                            <p class="text-sm opacity-60">Please fill out your delivery and payment details to complete your order.</p>
+                        </div>
+
+                        <form id="checkout-order-form" class="space-y-6">
+                            <!-- Shipping Info -->
+                            <div class="space-y-4">
+                                <h2 class="text-lg font-bold uppercase tracking-wider title-font opacity-80">1. Shipping Info</h2>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="space-y-2">
+                                        <label class="text-xs uppercase tracking-wider font-semibold opacity-70 block" id="label-cust-name">Full Name</label>
+                                        <input required type="text" id="checkout-cust-name" class="w-full rounded-xl py-3 px-4 text-sm" placeholder="John Doe">
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="text-xs uppercase tracking-wider font-semibold opacity-70 block" id="label-cust-phone">Phone Number</label>
+                                        <input required type="tel" id="checkout-cust-phone" class="w-full rounded-xl py-3 px-4 text-sm" placeholder="1-800-555-0199">
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-xs uppercase tracking-wider font-semibold opacity-70 block" id="label-cust-email">Email Address</label>
+                                    <input required type="email" id="checkout-cust-email" class="w-full rounded-xl py-3 px-4 text-sm" placeholder="john@example.com">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-xs uppercase tracking-wider font-semibold opacity-70 block" id="label-cust-address">Shipping Address</label>
+                                    <textarea required id="checkout-cust-address" rows="3" class="w-full rounded-xl py-3 px-4 text-sm resize-none" placeholder="123 Magic Street, Sweet City, 110001"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Payment Methods -->
+                            <div class="space-y-4 pt-4 hidden">
+                                <h2 class="text-lg font-bold uppercase tracking-wider title-font opacity-80">2. Payment Method</h2>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4" id="checkout-payment-options">
+                                    <!-- UPI Option -->
+                                    <label class="payment-card border rounded-xl p-4 flex flex-col items-center gap-3 cursor-pointer transition-all text-center relative">
+                                        <input type="radio" name="checkout-payment" value="UPI" checked class="sr-only">
+                                        <div class="payment-capsule w-16 h-6 rounded-full border flex items-center justify-center transition-all duration-300">
+                                            <div class="inner-dot w-2 h-2 rounded-full bg-transparent transition-all duration-300"></div>
+                                        </div>
+                                        <svg class="w-8 h-8 opacity-80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                                        </svg>
+                                        <div>
+                                            <p class="font-bold text-xs uppercase tracking-wider">UPI</p>
+                                            <p class="text-[10px] opacity-50 mt-0.5">Instant Transfer</p>
+                                        </div>
+                                    </label>
+                                    <!-- Card Option -->
+                                    <label class="payment-card border rounded-xl p-4 flex flex-col items-center gap-3 cursor-pointer transition-all text-center relative">
+                                        <input type="radio" name="checkout-payment" value="Card" class="sr-only">
+                                        <div class="payment-capsule w-16 h-6 rounded-full border flex items-center justify-center transition-all duration-300">
+                                            <div class="inner-dot w-2 h-2 rounded-full bg-transparent transition-all duration-300"></div>
+                                        </div>
+                                        <svg class="w-8 h-8 opacity-80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                                        </svg>
+                                        <div>
+                                            <p class="font-bold text-xs uppercase tracking-wider">Card</p>
+                                            <p class="text-[10px] opacity-50 mt-0.5">Visa / Mastercard</p>
+                                        </div>
+                                    </label>
+                                    <!-- COD Option -->
+                                    <label class="payment-card border rounded-xl p-4 flex flex-col items-center gap-3 cursor-pointer transition-all text-center relative">
+                                        <input type="radio" name="checkout-payment" value="COD" class="sr-only">
+                                        <div class="payment-capsule w-16 h-6 rounded-full border flex items-center justify-center transition-all duration-300">
+                                            <div class="inner-dot w-2 h-2 rounded-full bg-transparent transition-all duration-300"></div>
+                                        </div>
+                                        <svg class="w-8 h-8 opacity-80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                        </svg>
+                                        <div>
+                                            <p class="font-bold text-xs uppercase tracking-wider">COD</p>
+                                            <p class="text-[10px] opacity-50 mt-0.5">Cash on Delivery</p>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Complete Button -->
+                            <div class="pt-4">
+                                <button type="submit" id="checkout-submit-btn" class="w-full py-4 text-center rounded-xl font-bold uppercase tracking-widest text-sm shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
+                                    Complete Purchase
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Right Column: Order Summary & Counters -->
+                    <div class="lg:col-span-5 border-t lg:border-t-0 lg:border-l border-white/10 lg:pl-12 pt-12 lg:pt-0">
+                        <div class="space-y-6">
+                            <h2 class="text-xl font-bold uppercase tracking-wider title-font opacity-80 mb-4">Order Summary</h2>
+                            
+                            <!-- Product 1: Coca-Cola Original -->
+                            <div class="flex flex-col gap-4 rounded-2xl p-4 border" id="checkout-product-original-card">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-16 h-16 rounded-xl overflow-hidden bg-cover bg-center flex-shrink-0" style="background-image: url('Coca cola aesthetics.jpg');"></div>
+                                    <div class="flex-grow">
+                                        <h3 class="font-bold title-font text-sm leading-tight">Coca-Cola Original</h3>
+                                        <p class="text-[11px] opacity-50 mt-0.5">40 INR / Can</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between border-t border-white/5 pt-3 mt-1" id="coke-qty-border">
+                                    <span class="text-xs uppercase tracking-wider font-semibold opacity-60">Quantity</span>
+                                    <div class="counter-wrapper flex items-center gap-3 rounded-xl p-1">
+                                        <button type="button" id="checkout-coke-qty-minus" class="counter-btn w-8 h-8 rounded-lg flex items-center justify-center font-bold transition-colors text-sm">-</button>
+                                        <span id="checkout-coke-qty-val" class="w-8 text-center font-black text-sm">1</span>
+                                        <button type="button" id="checkout-coke-qty-plus" class="counter-btn w-8 h-8 rounded-lg flex items-center justify-center font-bold transition-colors text-sm">+</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product 2: Diet Coke -->
+                            <div class="flex flex-col gap-4 rounded-2xl p-4 border" id="checkout-product-diet-card">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-16 h-16 rounded-xl overflow-hidden bg-cover bg-center flex-shrink-0" style="background-image: url('diet coke 3.jpg');"></div>
+                                    <div class="flex-grow">
+                                        <h3 class="font-bold title-font text-sm leading-tight">Diet Coke Silver</h3>
+                                        <p class="text-[11px] opacity-50 mt-0.5">40 INR / Can</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between border-t border-white/5 pt-3 mt-1" id="diet-qty-border">
+                                    <span class="text-xs uppercase tracking-wider font-semibold opacity-60">Quantity</span>
+                                    <div class="counter-wrapper flex items-center gap-3 rounded-xl p-1">
+                                        <button type="button" id="checkout-diet-qty-minus" class="counter-btn w-8 h-8 rounded-lg flex items-center justify-center font-bold transition-colors text-sm">-</button>
+                                        <span id="checkout-diet-qty-val" class="w-8 text-center font-black text-sm">0</span>
+                                        <button type="button" id="checkout-diet-qty-plus" class="counter-btn w-8 h-8 rounded-lg flex items-center justify-center font-bold transition-colors text-sm">+</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pricing Breakdown -->
+                            <div class="space-y-3 pt-4 border-t border-white/5">
+                                <div class="flex justify-between text-sm" id="checkout-coke-row">
+                                    <span class="opacity-60">Coca-Cola Original</span>
+                                    <span id="checkout-summary-coke-total">INR 40.00</span>
+                                </div>
+                                <div class="flex justify-between text-sm" id="checkout-diet-row">
+                                    <span class="opacity-60">Diet Coke Silver</span>
+                                    <span id="checkout-summary-diet-total">INR 0.00</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="opacity-60">Shipping</span>
+                                    <span class="text-green-500 font-medium">FREE</span>
+                                </div>
+                                <div class="flex justify-between text-lg font-black title-font pt-3 border-t" id="checkout-total-price-row">
+                                    <span>TOTAL</span>
+                                    <span id="checkout-total-price">INR 40.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Success Overlay View (Hidden initially) -->
+                <div id="checkout-success-view" class="hidden flex flex-col items-center justify-center py-16 space-y-8">
+                    <div class="success-tick-wrapper">
+                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                        </svg>
+                    </div>
+                    <div class="text-center space-y-3">
+                        <h2 class="title-font text-3xl md:text-4xl font-black uppercase tracking-tight">Order Placed Successfully!</h2>
+                        <p class="text-sm opacity-60 max-w-md mx-auto">Thank you for your purchase. Your order <span class="font-bold text-red-500" id="checkout-success-order-num">#CC-490218</span> is ready for shipment.</p>
+                    </div>
+
+                    <!-- Order Details Summary Card -->
+                    <div class="w-full max-w-md rounded-3xl p-6 space-y-4 text-sm" id="checkout-success-summary-card">
+                        <div class="flex flex-col gap-2 border-b pb-3" id="checkout-success-items-list">
+                            <!-- Populated dynamically by JavaScript -->
+                        </div>
+                        <div class="flex justify-between border-b pb-2">
+                            <span class="opacity-60">Total Paid</span>
+                            <span id="checkout-success-total" class="font-bold">INR 40.00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="opacity-60">Payment Mode</span>
+                            <span id="checkout-success-payment" class="font-bold uppercase">UPI</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <a href="#" id="checkout-success-home-btn" class="inline-block px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm shadow-xl transition-all duration-300">
+                            Continue Shopping
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="w-full py-8 border-t text-center text-xs opacity-40 transition-colors duration-500" id="checkout-footer-el">
+            © 2024 The Coca-Cola Company. All rights reserved.
+        </footer>
+    </div>
+
+    <!-- Admin Section -->
+    <div id="admin-content" class="content-section-wrapper relative z-10 min-h-screen opacity-0 hidden">
+        <!-- Header Navigation (Admin specific) -->
+        <header class="w-full px-6 py-6 md:px-16 flex items-center justify-between border-b border-white/10 transition-colors duration-500 text-white" id="admin-header">
+            <a href="#" class="flex items-center gap-2 group text-sm font-semibold hover:opacity-80 transition-opacity text-white" id="view-site-btn">
+                <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                </svg>
+                <span>Back to Home</span>
+            </a>
+            <div class="text-center font-bold tracking-wider uppercase title-font text-lg font-headline-lg">
+                COCA-COLA
+            </div>
+            <div class="w-20"></div> <!-- Spacer for balancing back link -->
+        </header>
+
+        <!-- Ambient background glows for admin section -->
+        <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[radial-gradient(circle,rgba(255,84,73,0.08)_0%,rgba(0,0,0,0)_70%)] pointer-events-none z-0"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[radial-gradient(circle,rgba(160,174,192,0.05)_0%,rgba(0,0,0,0)_70%)] pointer-events-none z-0"></div>
+
+        <main class="container mx-auto px-6 py-12 flex items-center justify-center min-h-[80vh] relative z-10">
+            <!-- AUTH PANEL -->
+            <div id="auth-panel" class="w-full max-w-md glass-card bg-white/5 border border-white/10 backdrop-blur-md rounded-[2.5rem] p-8 md:p-10 shadow-2xl transition-all duration-500">
+                <div class="text-center mb-8">
+                    <h1 id="auth-title" class="font-display text-3xl font-black uppercase tracking-tight text-white mb-2">Admin Portal</h1>
+                    <p id="auth-subtitle" class="text-xs tracking-widest uppercase opacity-55 text-gray-400">Loading Configuration...</p>
+                </div>
+                <form id="auth-form" class="space-y-5">
+                    <div class="space-y-2">
+                        <label for="username" class="text-xs uppercase tracking-wider font-semibold opacity-70 block text-gray-300">Username</label>
+                        <input required type="text" id="username" class="w-full bg-black/20 border border-white/10 focus:border-red-500 focus:ring-1 focus:ring-red-500 rounded-xl py-3.5 px-4 text-white text-sm" placeholder="admin">
+                    </div>
+                    <div class="space-y-2">
+                        <label for="password" class="text-xs uppercase tracking-wider font-semibold opacity-70 block text-gray-300">Password</label>
+                        <input required type="password" id="password" class="w-full bg-black/20 border border-white/10 focus:border-red-500 focus:ring-1 focus:ring-red-500 rounded-xl py-3.5 px-4 text-white text-sm" placeholder="••••••••">
+                    </div>
+                    <div id="auth-error" class="text-sm text-red-400 text-center font-medium hidden"></div>
+                    <button type="submit" id="auth-submit-btn" class="w-full py-4 text-center rounded-xl font-bold uppercase tracking-widest text-sm transition-all duration-300 transform hover:-translate-y-0.5 bg-[#ff5449] hover:bg-[#c93b32] text-white shadow-xl mt-2">
+                        Sign In
+                    </button>
+                </form>
+            </div>
+
+            <!-- DASHBOARD PANEL -->
+            <div id="dashboard-panel" class="w-full max-w-6xl glass-card bg-white/5 border border-white/10 backdrop-blur-md rounded-[2.5rem] p-6 md:p-10 flex flex-col justify-between hidden shadow-2xl transition-all duration-500">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-white/10 pb-6 mb-6 gap-4">
+                    <div>
+                        <h1 class="font-display text-2xl font-black uppercase tracking-tight text-white">Management Console</h1>
+                        <p class="text-xs opacity-50 uppercase tracking-widest text-gray-400">Logged in as <span id="admin-username-display" class="font-bold text-[#ff5449]">admin</span></p>
+                    </div>
+                    <div>
+                        <button id="admin-logout-btn" class="border border-white/10 bg-white/5 hover:bg-[#ff5449]/10 hover:border-[#ff5449] transition-all px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-widest text-gray-300 hover:text-white">
+                            Sign Out
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+                    <div class="flex border-b border-white/5 gap-6 text-sm font-bold uppercase tracking-wider text-gray-400">
+                        <button id="admin-tab-orders" class="tab-btn pb-3 active border-b-2 border-red-500 text-white transition-all">Bookings / Orders (<span id="admin-count-orders">0</span>)</button>
+                        <button id="admin-tab-contacts" class="tab-btn pb-3 transition-all">Contact Messages (<span id="admin-count-contacts">0</span>)</button>
+                    </div>
+                    <div class="relative w-full sm:w-72">
+                        <input type="text" id="admin-search" class="w-full bg-black/20 border border-white/10 focus:border-red-500 focus:ring-1 focus:ring-red-500 rounded-xl py-2.5 pl-10 pr-4 text-white text-xs" placeholder="Search entries...">
+                        <svg class="w-4 h-4 text-gray-400 absolute left-3.5 top-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto w-full min-h-[400px]">
+                    <table id="table-orders-el" class="w-full text-left text-sm border-collapse">
+                        <thead>
+                            <tr class="border-b border-white/5 text-xs text-gray-400 uppercase tracking-wider font-semibold">
+                                <th class="py-4 px-4">Order Ref</th>
+                                <th class="py-4 px-4">Customer Details</th>
+                                <th class="py-4 px-4">Items Ordered</th>
+                                <th class="py-4 px-4">Address</th>
+                                <th class="py-4 px-4">Payment</th>
+                                <th class="py-4 px-4 text-right">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-tbody" class="divide-y divide-white/5 text-gray-300">
+                        </tbody>
+                    </table>
+
+                    <table id="table-contacts-el" class="w-full text-left text-sm border-collapse hidden">
+                        <thead>
+                            <tr class="border-b border-white/5 text-xs text-gray-400 uppercase tracking-wider font-semibold">
+                                <th class="py-4 px-4">Date</th>
+                                <th class="py-4 px-4">Sender</th>
+                                <th class="py-4 px-4">Subject</th>
+                                <th class="py-4 px-4">Message</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contacts-tbody" class="divide-y divide-white/5 text-gray-300">
+                        </tbody>
+                    </table>
+
+                    <div id="admin-empty-state" class="hidden flex flex-col items-center justify-center py-20 space-y-4 text-center">
+                        <div class="w-12 h-12 text-[#ff5449] opacity-40">
+                            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 012.008 1.24l.885 1.77a2.25 2.25 0 002.007 1.24h1.98a2.25 2.25 0 002.007-1.24l.885-1.77a2.25 2.25 0 012.007-1.24h3.89m-1.92 10.702l-14.177-10.03A3.75 3.75 0 0110.5 3h3a3.75 3.75 0 013.332 5.093l-1.92 10.702z"/>
+                            </svg>
+                        </div>
+                        <p class="text-sm opacity-55 text-gray-400">No records found matching your search</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="w-full py-8 border-t border-white/10 text-center text-xs opacity-40 transition-colors duration-500 text-white" id="admin-footer-el">
+            © 2024 The Coca-Cola Company. Management Console.
+        </footer>
+    </div>
+
+    <!-- Razorpay Checkout SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <!-- Core Script -->
+    <script src="script.js?v=1.7.0"></script>
+</body>
+</html>
