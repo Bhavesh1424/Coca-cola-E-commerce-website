@@ -265,5 +265,106 @@ header.nav-up {
     pointer-events: auto;
 }
 
+/* ==========================================================================
+   Diet Coke Page - Admin Portal Light Theme Styling
+   ========================================================================== */
+
+/* Target the entire admin content wrapper under the diet-coke-page body */
+body.diet-coke-page #admin-content {
+    color: #1f1f23;
+}
+
+/* Increase contrast for the main auth and dashboard containers */
+body.diet-coke-page #admin-content .glass-card {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border-color: rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Override white text classes to dark colors */
+body.diet-coke-page #admin-content .text-white {
+    color: #0c0c0e !important;
+}
+
+body.diet-coke-page #admin-content .text-gray-300 {
+    color: #1e1e21 !important;
+}
+
+body.diet-coke-page #admin-content .text-gray-400 {
+    color: #43434b !important;
+}
+
+body.diet-coke-page #admin-content .text-gray-500 {
+    color: #6a6a75 !important;
+}
+
+/* Redefine borders & background details */
+body.diet-coke-page #admin-content .border-white\/10 {
+    border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+body.diet-coke-page #admin-content .border-white\/5 {
+    border-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+body.diet-coke-page #admin-content .divide-white\/5 > * + * {
+    border-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+body.diet-coke-page #admin-content .bg-white\/5 {
+    background-color: rgba(0, 0, 0, 0.02) !important;
+}
+
+/* Search input specific overrides */
+body.diet-coke-page #admin-content .bg-black\/20 {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+body.diet-coke-page #admin-content input[type="text"],
+body.diet-coke-page #admin-content input[type="password"] {
+    color: #0c0c0e !important;
+}
+
+body.diet-coke-page #admin-content input::placeholder {
+    color: #7b7b87 !important;
+}
+
+/* Active tab contrast overrides */
+body.diet-coke-page #admin-content #admin-tab-orders.active,
+body.diet-coke-page #admin-content #admin-tab-contacts.active {
+    color: #0c0c0e !important;
+    border-color: #ff5449 !important;
+}
+
+/* Admin header visual updates */
+body.diet-coke-page #admin-content #admin-header {
+    color: #0c0c0e !important;
+    border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+body.diet-coke-page #admin-content #admin-header a {
+    color: #0c0c0e !important;
+}
+
+/* Sign out button styling adjustments */
+body.diet-coke-page #admin-content #admin-logout-btn {
+    color: #43434b !important;
+    border-color: rgba(0, 0, 0, 0.08) !important;
+    background-color: rgba(0, 0, 0, 0.02) !important;
+}
+
+body.diet-coke-page #admin-content #admin-logout-btn:hover {
+    color: #ffffff !important;
+    background-color: #ff5449 !important;
+    border-color: #ff5449 !important;
+}
+
+/* Table row hover interactions */
+body.diet-coke-page #admin-content tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.02) !important;
+}
+
+
 
 

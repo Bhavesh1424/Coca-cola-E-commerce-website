@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Detect page type and apply theme-class
+    if (window.location.pathname.includes('diet-coke.html')) {
+        document.body.classList.add('diet-coke-page');
+    }
     // -------------------------------------------------------------
     // Supabase Backend Integration
     // -------------------------------------------------------------
@@ -381,7 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Scroll to the top of the viewport when loading checkout
-            window.scrollTo(0, 0);
+            window.scrollTo({ top: 0, behavior: 'instant' });
         } else if (targetView === 'admin') {
             // Hide canvases, spacer, and canvas-container for admin view
             if (canvasContainer) canvasContainer.style.display = 'none';
@@ -402,7 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             document.documentElement.style.setProperty('--bg-color', '#0b0c10');
-            window.scrollTo(0, 0);
+            window.scrollTo({ top: 0, behavior: 'instant' });
         }
 
         // 2. Cross-fade Content Containers
@@ -618,6 +622,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const href = link.getAttribute('href');
         if (!href) return;
+
+        // Skip social action buttons (Globe, Share, Like) so their custom handlers run uninterrupted
+        const label = link.getAttribute('aria-label');
+        if (label === 'Web' || label === 'Share' || label === 'Like') {
+            return;
+        }
 
         // Intercept clicks to admin portal for smooth SPA transition
         if (href.includes('admin.html') || href === '#admin') {
@@ -1635,4 +1645,117 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize Admin Portal features
     initAdminPortal();
+
+    // Initialize social action buttons (Globe, Share, Like)
+    initSocialButtons();
 });
+
+// Social Actions (Globe, Share, Like) Initializer
+function initSocialButtons() {
+    // 1. Globe (Web) Buttons - do nothing
+    const webButtons = document.querySelectorAll('a[aria-label="Web"]');
+    webButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+        });
+    });
+
+    // 2. Share Buttons - copy website link to clipboard and show toast notification
+    const shareButtons = document.querySelectorAll('a[aria-label="Share"]');
+    shareButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const siteUrl = window.location.href;
+            
+            navigator.clipboard.writeText(siteUrl).then(() => {
+                showToast("Website link copied to clipboard!");
+            }).catch(err => {
+                console.error("Failed to copy link using Clipboard API, trying fallback: ", err);
+                
+                // Fallback copy method for older browsers or restricted environments
+                const textArea = document.createElement("textarea");
+                textArea.value = siteUrl;
+                textArea.style.position = "fixed";
+                textArea.style.opacity = "0";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast("Website link copied to clipboard!");
+                } catch (copyErr) {
+                    console.error("Fallback copy failed: ", copyErr);
+                    showToast("Failed to copy link automatically.");
+                }
+                document.body.removeChild(textArea);
+            });
+        });
+    });
+
+    // 3. Like Buttons - smooth scroll & focus the Full Name input in the contact form
+    const likeButtons = document.querySelectorAll('a[aria-label="Like"]');
+    likeButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Determine if the clicked button is inside the Diet section or the main section
+            const isDietSection = btn.closest('#contact-diet-section') !== null || document.getElementById('contact-diet-section') !== null && btn.closest('.bg-chrome-bright') !== null;
+            let targetInput;
+            
+            if (isDietSection) {
+                targetInput = document.querySelector('#contact-form-diet input[placeholder="John Doe"]');
+            } else {
+                targetInput = document.querySelector('#contact-form input[placeholder="John Doe"]');
+            }
+            
+            if (targetInput) {
+                // Smooth scroll to the input block
+                targetInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Focus the input field after the scroll animation has completed
+                setTimeout(() => {
+                    targetInput.focus();
+                }, 600);
+            }
+        });
+    });
+}
+
+// Toast notification helper function
+function showToast(message) {
+    let container = document.getElementById('toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'toast-container';
+        container.className = 'fixed bottom-8 right-8 z-[9999] flex flex-col gap-2 pointer-events-none';
+        document.body.appendChild(container);
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = 'bg-stone-900 border border-white/10 text-white px-6 py-4 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-auto backdrop-blur-md';
+    
+    toast.innerHTML = `
+        <span class="material-symbols-outlined text-emerald-500 text-xl">check_circle</span>
+        <span class="text-sm font-medium tracking-wide font-sans">${message}</span>
+    `;
+    
+    container.appendChild(toast);
+    
+    // Fade in and slide up
+    setTimeout(() => {
+        toast.classList.remove('translate-y-4', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+    }, 10);
+    
+    // Auto-fade out and remove after 3 seconds
+    setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-4', 'opacity-0');
+        setTimeout(() => {
+            toast.remove();
+            if (container.children.length === 0) {
+                container.remove();
+            }
+        }, 300);
+    }, 3000);
+}
